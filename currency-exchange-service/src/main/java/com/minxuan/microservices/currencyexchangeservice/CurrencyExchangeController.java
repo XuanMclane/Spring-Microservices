@@ -35,7 +35,12 @@ public class CurrencyExchangeController {
         if (!currencyExchange.isPresent()) {
             return ResponseEntity.notFound().build();
         }
-        currencyExchange.get().setEnvironment(environment.getProperty("local.server.port"));
+
+        String port = environment.getProperty("local.server.port");
+        String host = environment.getProperty("HOSTNAME");
+        String version = "v11";
+
+        currencyExchange.get().setEnvironment(port + " " + version + " " + host);
 
         return ResponseEntity.ok(currencyExchange);
     }
